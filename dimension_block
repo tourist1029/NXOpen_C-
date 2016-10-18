@@ -1,0 +1,79 @@
+//create the dimension setting
+ NXOpen.Part workPart = theSession.Parts.Work;
+
+            NXOpen.Annotations.LetteringPreferences lp1 = workPart.Annotations.Preferences.GetLetteringPreferences();
+            NXOpen.Annotations.Lettering dimensionText1;
+
+            dimensionText1.CharacterSpaceFactor = 0.3;
+            dimensionText1.AspectRatio = 0.5;
+            dimensionText1.LineSpaceFactor = 0.1;
+            dimensionText1.Cfw.Font = 1;
+            dimensionText1.Size = double_font_height.Value;
+            dimensionText1.Cfw.Color = colorPicker_dimension.GetValue()[0];  //目前测试去数组的第一项
+            dimensionText1.Cfw.Width = (NXOpen.Annotations.LineWidth)lineWidth_fonts.LineWidthValue;  //设置线宽
+            //dimensionText1.Cfw.Width = (NXOpen.Annotations.LineWidth)double_width.Value;//NXOpen.Annotations.LineWidth.Six;
+            dimensionText1.Italic = false;
+
+            lp1.SetDimensionText(dimensionText1);
+            workPart.Annotations.Preferences.SetLetteringPreferences(lp1);
+
+            lp1.Dispose();
+
+            NXOpen.Annotations.LineAndArrowPreferences la1 = workPart.Annotations.Preferences.GetLineAndArrowPreferences();
+            la1.ArrowheadLength = double_arrow_height.Value; //箭头大小
+
+            //箭头颜色设置
+            //左侧箭头
+            NXOpen.Annotations.LineCfw firstExtensionLineCfw1 = new NXOpen.Annotations.LineCfw(colorPicker_arrow.GetValue()[0], DisplayableObject.ObjectFont.Solid, NXOpen.Annotations.LineWidth.Two);
+            la1.SetFirstExtensionLineCfw(firstExtensionLineCfw1);  //延长线
+
+            NXOpen.Annotations.LineCfw firstArrowHeadCfw1 = new NXOpen.Annotations.LineCfw(colorPicker_arrow.GetValue()[0], DisplayableObject.ObjectFont.Solid, NXOpen.Annotations.LineWidth.Two);
+            la1.SetFirstArrowheadCfw(firstArrowHeadCfw1); //左箭头
+
+            NXOpen.Annotations.LineCfw firstArrowLineCfw1 = new NXOpen.Annotations.LineCfw(colorPicker_arrow.GetValue()[0], DisplayableObject.ObjectFont.Solid, NXOpen.Annotations.LineWidth.Two);
+            la1.SetFirstArrowLineCfw(firstArrowLineCfw1); //箭头延长线
+
+            //右侧箭头
+
+            NXOpen.Annotations.LineCfw secondExtensionLineCfw1 = new NXOpen.Annotations.LineCfw(colorPicker_arrow.GetValue()[0], DisplayableObject.ObjectFont.Solid, NXOpen.Annotations.LineWidth.One);
+            la1.SetSecondExtensionLineCfw(secondExtensionLineCfw1);  //延长线
+
+            NXOpen.Annotations.LineCfw secondArrowHeadCfw1 = new NXOpen.Annotations.LineCfw(colorPicker_arrow.GetValue()[0], DisplayableObject.ObjectFont.Solid, NXOpen.Annotations.LineWidth.One);
+            la1.SetSecondArrowheadCfw(secondArrowHeadCfw1); //左箭头
+
+            NXOpen.Annotations.LineCfw secondArrowLineCfw1 = new NXOpen.Annotations.LineCfw(colorPicker_arrow.GetValue()[0], DisplayableObject.ObjectFont.Solid, NXOpen.Annotations.LineWidth.One);
+            la1.SetSecondArrowLineCfw(secondArrowLineCfw1); //箭头延长线
+
+
+            workPart.Annotations.Preferences.SetLineAndArrowPreferences(la1);
+            la1.Dispose();
+
+            //添加尺寸精度的设置
+
+            //NXOpen.Annotations.Value precision1 = new NXOpen.Annotations.Value();
+            //precision1.ValuePrecision = integer_precision.Value;
+            NXOpen.Annotations.DimensionStyleBuilder pb1 = workPart.Annotations.DimensionSets
+            /*
+            NXOpen.Drafting.PreferencesBuilder pb1 = workPart.SettingsManager.CreatePreferencesBuilder();
+            pb1.AnnotationStyle.DimensionStyle.AngularDimensionValuePrecision = integer_precision.Value;
+            pb1.AnnotationStyle.DimensionStyle.DimensionValuePrecision = integer_precision.Value;
+            //小数分隔符
+            
+            if (toggle_comma.Value == true)
+            {
+                pb1.AnnotationStyle.UnitsStyle.DecimalPointCharacter = NXOpen.Annotations.DecimalPointCharacter.Comma;
+            }
+
+            if (toggle_period.Value == true)
+            {
+                pb1.AnnotationStyle.UnitsStyle.DecimalPointCharacter = NXOpen.Annotations.DecimalPointCharacter.Period;
+            }
+
+            NXOpen.NXObject nx5;
+            nx5 = pb1.Commit();
+            pb1.Destroy();
+
+            */
+
+            //NX8注释
+            //NXOpen.Annotations.DimensionStyleBuilder ad1 = workPart
